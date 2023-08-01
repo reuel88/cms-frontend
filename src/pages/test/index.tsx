@@ -1,7 +1,7 @@
 export default function Test() {
     return (
-        <div>
-        <h1>Test</h1>
-        </div>
+        <h1 className="text-2xl font-bold underline">
+        Hello world!
+      </h1>
     )
 }
