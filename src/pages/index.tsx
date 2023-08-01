@@ -1,14 +1,14 @@
 import Head from 'next/head'
 import Image from 'next/image'
 
-import styles from '@/pages/index.module.css'
+import styles from './index.module.css'
 
 export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
         <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/packages/cms-frontend/src/public/favicon.ico" />
       </Head>
 
       <main>
