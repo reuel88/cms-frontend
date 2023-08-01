@@ -8,7 +8,7 @@ export default function Home() {
     <div className={styles.container}>
       <Head>
         <title>Create Next App</title>
-        <link rel="icon" href="/packages/cms-frontend/src/public/favicon.ico" />
+        <link rel="icon" href="/packages/cms-frontend/public/favicon.ico" />
       </Head>
 
       <main>
