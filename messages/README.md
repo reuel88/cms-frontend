@@ -1,0 +1,1 @@
+https://github.com/amannn/next-intl/tree/main/examples/example-next-13
