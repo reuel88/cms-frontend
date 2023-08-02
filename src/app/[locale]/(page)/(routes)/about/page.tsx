@@ -6,5 +6,5 @@ export default function About() {
       <h1>About Page</h1>
       <Link href="/packages/cms-frontend/public">Homepage</Link>
     </div>
-  )
+  );
 }

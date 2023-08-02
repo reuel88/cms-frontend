@@ -1,17 +1,34 @@
-import { render, screen } from '@testing-library/react'
-import Home from '@/app/(page)/(routes)/page'
+import { render, screen } from "@testing-library/react";
+import Home from "@/app/[locale]/(page)/(routes)/page";
+import { NextIntlClientProvider } from "next-intl";
+import messages from "../../messages/en.json";
 
-describe('Home', () => {
-  it('renders correctly', () => {
-    render(<Home />)
+jest.mock("next-intl/client", () => {
+  return {
+    usePathname: () => "/",
+    useRouter: jest.fn(),
+  };
+});
 
-    const heading = screen.getByText(/Get started by editing/i)
+describe("Home", () => {
+  it("renders correctly", () => {
+    render(
+      <NextIntlClientProvider locale="en" messages={messages}>
+        <Home />
+      </NextIntlClientProvider>,
+    );
 
-    expect(heading).toBeInTheDocument()
-  })
+    const heading = screen.getByText(/Get started by editing/i);
 
-  it('renders homepage unchanged', () => {
-    const { container } = render(<Home />)
-    expect(container).toMatchSnapshot()
-  })
-})
+    expect(heading).toBeInTheDocument();
+  });
+
+  it("renders homepage unchanged", () => {
+    const { container } = render(
+      <NextIntlClientProvider locale="en" messages={messages}>
+        <Home />
+      </NextIntlClientProvider>,
+    );
+    expect(container).toMatchSnapshot();
+  });
+});

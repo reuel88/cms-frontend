@@ -1,10 +1,6 @@
 import { ReactNode } from "react";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-import { ModeProvider } from "@/contexts/ModeContext";
-
-const inter = Inter({ subsets: ["latin"] });
+import { Metadata } from "next";
 
 // TODO: finish manifest file
 export const metadata: Metadata = {
@@ -14,18 +10,12 @@ export const metadata: Metadata = {
   themeColor: "#FFFFFF",
 };
 
-interface RootLayoutProps {
+type RootLayoutProps = {
   children: ReactNode;
-}
+};
 
+// Since we have a `not-found.tsx` page on the root, a layout file
+// is required, even if it's just passing children through.
 export default function RootLayout({ children }: RootLayoutProps) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <ModeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-        </ModeProvider>
-      </body>
-    </html>
-  );
+  return children;
 }
