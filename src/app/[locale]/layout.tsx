@@ -1,9 +1,9 @@
 import { ReactNode } from "react";
 import { Inter } from "next/font/google";
-import { isRtlLang } from "rtl-detect";
 import { createTranslator, NextIntlClientProvider } from "next-intl";
+import { isRtlLang } from "rtl-detect";
 import { ModeProvider } from "@/contexts/ModeContext";
-import { notFound } from "next/navigation";
+import { languageCodes } from "@/constants/locales";
 
 interface LocaleLayoutProps {
   children: ReactNode;
@@ -21,12 +21,16 @@ async function getMessages(locale: string) {
       dir,
     };
   } catch (error) {
-    notFound();
+    const messages = (await import(`../../../messages/en.json`)).default;
+    return {
+      messages,
+      dir: "ltr",
+    };
   }
 }
 
 export async function generateStaticParams() {
-  return ["en-AU", "en", "ms", "id", "tl", "zh", "de"].map((locale) => ({
+  return languageCodes.map((locale) => ({
     locale,
   }));
 }

@@ -2,7 +2,7 @@
 
 import { FC, useTransition } from "react";
 import { usePathname, useRouter } from "next-intl/client";
-import { useLocale, useTranslations } from "use-intl";
+import { useLocale } from "use-intl";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -10,9 +10,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { languageCodes, languageNames } from "@/constants/locales";
 
 const LocaleSwitcher: FC = () => {
-  const t = useTranslations("LocaleSwitcher");
   const [isPending, startTransition] = useTransition();
   const locale = useLocale();
   const router = useRouter();
@@ -28,14 +28,14 @@ const LocaleSwitcher: FC = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button type="button" variant="outline" disabled={isPending}>
-          {t("locale", { locale })}
+          {languageNames[locale]}
           <span className="sr-only">Toggle Language</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        {["en", "de", "ar"].map((cur) => (
+        {languageCodes.map((cur) => (
           <DropdownMenuItem key={cur} onClick={() => handleSelect(cur)}>
-            {t("locale", { locale: cur })}
+            {languageNames[cur]}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

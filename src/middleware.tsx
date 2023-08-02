@@ -1,8 +1,8 @@
 import createMiddleware from "next-intl/middleware";
+import { languageCodes } from "./constants/locales";
 
-// TODO: Make constants for locales
 export default createMiddleware({
-  locales: ["en", "de", "ar"],
+  locales: languageCodes,
   defaultLocale: "en",
 });
 
