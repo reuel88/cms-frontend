@@ -8,6 +8,9 @@ const nextConfig = {
     skipWaiting: true,
   }),
   productionBrowserSourceMaps: true,
+  images: {
+    domains: [process.env.WP_IMAGES_URL],
+  },
 };
 
 module.exports = nextConfig;

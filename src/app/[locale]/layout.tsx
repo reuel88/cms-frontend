@@ -1,9 +1,13 @@
 import { ReactNode } from "react";
 import { Inter } from "next/font/google";
-import { createTranslator, NextIntlClientProvider } from "next-intl";
+import { notFound } from "next/navigation";
+import { NextIntlClientProvider } from "next-intl";
 import { isRtlLang } from "rtl-detect";
-import { ModeProvider } from "@/contexts/ModeContext";
+import { ModeProvider } from "@/contexts/mode-context";
+import { SiteProvider } from "@/contexts/site-context";
 import { languageCodes } from "@/constants/locales";
+import { getAllMenus } from "@/libs/menus";
+import { getSiteData } from "@/libs/site";
 
 interface LocaleLayoutProps {
   children: ReactNode;
@@ -21,11 +25,7 @@ async function getMessages(locale: string) {
       dir,
     };
   } catch (error) {
-    const messages = (await import(`../../../messages/en.json`)).default;
-    return {
-      messages,
-      dir: "ltr",
-    };
+    notFound();
   }
 }
 
@@ -35,16 +35,15 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params: { locale } }: Props) {
-  const { messages } = await getMessages(locale);
-
-  // You can use the core (non-React) APIs when you have to use next-intl
-  // outside of components. Potentially this will be simplified in the future
-  // (see https://next-intl-docs.vercel.app/docs/next-13/server-components).
-  const t = createTranslator({ locale, messages });
+// TODO: finish manifest file
+export async function generateMetadata() {
+  const { title, description } = await getSiteData();
 
   return {
-    title: t("LocaleLayout.title"),
+    title,
+    description,
+    manifest: "/manifest.json",
+    themeColor: "#FFFFFF",
   };
 }
 
@@ -54,14 +53,20 @@ export default async function LocaleLayout({
 }: LocaleLayoutProps) {
   const { messages, dir } = await getMessages(locale);
 
+  const siteData = await getSiteData();
+
+  const menusData = await getAllMenus();
+
   return (
     <html lang={locale} dir={dir} suppressHydrationWarning>
       <body className={inter.className}>
-        <ModeProvider attribute="class" defaultTheme="system" enableSystem>
-          <NextIntlClientProvider locale={locale} messages={messages}>
-            {children}
-          </NextIntlClientProvider>
-        </ModeProvider>
+        <SiteProvider metadata={siteData} menus={menusData}>
+          <ModeProvider attribute="class" defaultTheme="system" enableSystem>
+            <NextIntlClientProvider locale={locale} messages={messages}>
+              {children}
+            </NextIntlClientProvider>
+          </ModeProvider>
+        </SiteProvider>
       </body>
     </html>
   );
