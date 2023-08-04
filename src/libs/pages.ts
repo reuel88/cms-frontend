@@ -3,7 +3,9 @@ import { Block } from "@/components/wp-block-render";
 import { QUERY_ALL_PAGES_INDEX, QUERY_PAGE_BY_URI } from "@/data/pages";
 import { client } from "@/libs/apollo-client";
 
-export const cleanAndTransformBlocks = (blockJSON: unknown[]): Block[] => {
+export const cleanAndTransformBlocks = (blocksJSON: unknown[]): Block[] => {
+  if (!blocksJSON) return [];
+
   const blocks = JSON.parse(JSON.stringify(blockJSON));
 
   const assignIds = (b: Block[]) => {
@@ -28,10 +30,10 @@ export const getPageByUri = async (uri: string): Promise<Page> => {
     },
   });
 
-  const page = { ...data.page, featuredImage: data.page.featuredImage?.node };
-  page.blocks = cleanAndTransformBlocks(data.page.blocks);
+  const page = { ...data.page, featuredImage: data.page?.featuredImage?.node };
+  page.blocks = cleanAndTransformBlocks(data.page?.blocks);
 
-  console.log(page);
+  console.log(data);
 
   return page;
 };
