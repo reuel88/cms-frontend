@@ -8,6 +8,10 @@ const nextConfig = {
     skipWaiting: true,
   }),
   productionBrowserSourceMaps: true,
+  images: {
+    dangerouslyAllowSVG: true,
+    domains: ["localhost", "res.cloudinary.com", "tailwindui.com"],
+  },
 };
 
 module.exports = nextConfig;
