@@ -2,8 +2,8 @@
 // TODO: remove "use client" form pages
 
 import { useTranslations } from "use-intl";
-import ModeToggle from "@/components/ModeToggle";
-import LocaleSwitcher from "@/components/LocaleSwitcher";
+import ModeToggle from "@/components/mode-toggle";
+import LocaleSwitcher from "@/components/locale-switcher";
 
 export default function Home() {
   const t = useTranslations("HomePage");

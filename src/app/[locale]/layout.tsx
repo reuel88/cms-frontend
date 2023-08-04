@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { Inter } from "next/font/google";
 import { createTranslator, NextIntlClientProvider } from "next-intl";
 import { isRtlLang } from "rtl-detect";
-import { ModeProvider } from "@/contexts/ModeContext";
+import { ModeProvider } from "@/contexts/mode-context";
 import { languageCodes } from "@/constants/locales";
 
 interface LocaleLayoutProps {
