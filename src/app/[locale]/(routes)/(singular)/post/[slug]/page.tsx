@@ -1,4 +1,3 @@
-import { FC } from "react";
 import { CheckCircle, ChevronRight, Home, Info } from "lucide-react";
 import SiteContainer from "@/components/site-container";
 import SiteAside, { SiteAsideContainer } from "@/components/site-aside";
@@ -71,7 +70,7 @@ const posts = [
 
 interface SlugPageProps {}
 
-const SlugPage: FC<SlugPageProps> = () => {
+export default function SlugPage({}: SlugPageProps) {
   return (
     <main>
       <SiteContainer>
@@ -82,7 +81,10 @@ const SlugPage: FC<SlugPageProps> = () => {
                 <ol role="list" className="flex items-center space-x-4">
                   <li>
                     <div>
-                      <a href="#" className="text-gray-400 hover:text-gray-500">
+                      <a
+                        href="@/app/[locale]/(routes)/(singular)/post/[slug]/page#"
+                        className="text-gray-400 hover:text-gray-500"
+                      >
                         <Home
                           className="h-5 w-5 flex-shrink-0"
                           aria-hidden="true"
@@ -405,6 +407,4 @@ const SlugPage: FC<SlugPageProps> = () => {
       </div>
     </main>
   );
-};
-
-export default SlugPage;
+}

@@ -1,11 +1,11 @@
 "use client";
 
-import { FC } from "react";
-import { ChevronRight, Home, MoveLeft, MoveRight } from "lucide-react";
+import { FC, ReactNode } from "react";
 import SiteContainer from "@/components/site-container";
-import { Disclosure } from "@headlessui/react";
-import { cn } from "@/libs/utils";
 import SiteAside, { SiteAsideContainer } from "@/components/site-aside";
+import { ChevronRight, Home, MoveLeft, MoveRight } from "lucide-react";
+import { cn } from "@/libs/utils";
+import { Disclosure } from "@headlessui/react";
 
 const pages = [{ name: "Blog", href: "#", current: false }];
 const navigation = [
@@ -92,12 +92,13 @@ const posts = [
         "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
     },
   },
-  // More posts...
 ];
 
-interface PostPageProps {}
+interface SiteArchiveLayoutProps {
+  children: ReactNode;
+}
 
-const PostPage: FC<PostPageProps> = () => {
+const SiteArchiveLayout: FC<SiteArchiveLayoutProps> = ({ children }) => {
   return (
     <main>
       <SiteContainer>
@@ -108,7 +109,10 @@ const PostPage: FC<PostPageProps> = () => {
                 <ol role="list" className="flex items-center space-x-4">
                   <li>
                     <div>
-                      <a href="#" className="text-gray-400 hover:text-gray-500">
+                      <a
+                        href="@/app/[locale]/(routes)/(singular)/post/page#"
+                        className="text-gray-400 hover:text-gray-500"
+                      >
                         <Home
                           className="h-5 w-5 flex-shrink-0"
                           aria-hidden="true"
@@ -137,195 +141,7 @@ const PostPage: FC<PostPageProps> = () => {
                 </ol>
               </nav>
             </SiteAsideContainer>
-          </SiteAside>
-
-          <section className="col-span-1 lg:col-span-2 lg:col-start-2 lg:row-span-2">
-            <div className="mx-auto mb-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 md:mx-0 md:max-w-none md:grid-cols-2">
-              <article className="flex flex-col items-start justify-between lg:col-span-2">
-                <div className="relative w-full">
-                  <img
-                    src="https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80"
-                    alt=""
-                    className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
-                  />
-                  <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
-                </div>
-                <div className="max-w-xl">
-                  <div className="mt-8 flex items-center gap-x-4 text-xs">
-                    <time dateTime="2020-03-16" className="text-gray-500">
-                      Mar 16, 2020
-                    </time>
-                    <a
-                      href="#"
-                      className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
-                    >
-                      Marketing
-                    </a>
-                  </div>
-                  <div className="group relative">
-                    <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                      <a href="#">
-                        <span className="absolute inset-0" />
-                        Boost your conversion rate
-                      </a>
-                    </h3>
-                    <p className="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
-                      Illo sint voluptas. Error voluptates culpa eligendi. Hic
-                      vel totam vitae illo. Non aliquid explicabo necessitatibus
-                      unde. Sed exercitationem placeat consectetur nulla
-                      deserunt vel. Iusto corrupti dicta.
-                    </p>
-                  </div>
-                  <div className="relative mt-8 flex items-center gap-x-4">
-                    <img
-                      src="https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                      alt=""
-                      className="h-10 w-10 rounded-full bg-gray-100"
-                    />
-                    <div className="text-sm leading-6">
-                      <p className="font-semibold text-gray-900">
-                        <a href="#">
-                          <span className="absolute inset-0" />
-                          Michael Foster
-                        </a>
-                      </p>
-                      <p className="text-gray-600">Co-Founder / CTO</p>
-                    </div>
-                  </div>
-                </div>
-              </article>
-
-              {posts.map((post) => (
-                <article
-                  key={post.id}
-                  className="flex flex-col items-start justify-between"
-                >
-                  <div className="relative w-full">
-                    <img
-                      src={post.imageUrl}
-                      alt=""
-                      className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
-                    />
-                    <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
-                  </div>
-                  <div className="max-w-xl">
-                    <div className="mt-8 flex items-center gap-x-4 text-xs">
-                      <time dateTime={post.datetime} className="text-gray-500">
-                        {post.date}
-                      </time>
-                      <a
-                        href={post.category.href}
-                        className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
-                      >
-                        {post.category.title}
-                      </a>
-                    </div>
-                    <div className="group relative">
-                      <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
-                        <a href={post.href}>
-                          <span className="absolute inset-0" />
-                          {post.title}
-                        </a>
-                      </h3>
-                      <p className="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">
-                        {post.description}
-                      </p>
-                    </div>
-                    <div className="relative mt-8 flex items-center gap-x-4">
-                      <img
-                        src={post.author.imageUrl}
-                        alt=""
-                        className="h-10 w-10 rounded-full bg-gray-100"
-                      />
-                      <div className="text-sm leading-6">
-                        <p className="font-semibold text-gray-900">
-                          <a href={post.author.href}>
-                            <span className="absolute inset-0" />
-                            {post.author.name}
-                          </a>
-                        </p>
-                        <p className="text-gray-600">{post.author.role}</p>
-                      </div>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-
-            <nav className="flex items-center justify-between border-t border-gray-200 px-4 sm:px-0">
-              <div className="-mt-px flex w-0 flex-1">
-                <a
-                  href="#"
-                  className="inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                >
-                  <MoveLeft
-                    className="mr-3 h-5 w-5 text-gray-400"
-                    aria-hidden="true"
-                  />
-                  Previous
-                </a>
-              </div>
-              <div className="hidden md:-mt-px md:flex">
-                <a
-                  href="#"
-                  className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                >
-                  1
-                </a>
-                {/* Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" */}
-                <a
-                  href="#"
-                  className="inline-flex items-center border-t-2 border-indigo-500 px-4 pt-4 text-sm font-medium text-indigo-600"
-                  aria-current="page"
-                >
-                  2
-                </a>
-                <a
-                  href="#"
-                  className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                >
-                  3
-                </a>
-                <span className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500">
-                  ...
-                </span>
-                <a
-                  href="#"
-                  className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                >
-                  8
-                </a>
-                <a
-                  href="#"
-                  className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                >
-                  9
-                </a>
-                <a
-                  href="#"
-                  className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                >
-                  10
-                </a>
-              </div>
-              <div className="-mt-px flex w-0 flex-1 justify-end">
-                <a
-                  href="#"
-                  className="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                >
-                  Next
-                  <MoveRight
-                    className="ml-3 h-5 w-5 text-gray-400"
-                    aria-hidden="true"
-                  />
-                </a>
-              </div>
-            </nav>
-          </section>
-
-          <SiteAside>
             <SiteAsideContainer>
-              {" "}
               <form className="sm:flex sm:items-center">
                 <div className="w-full ">
                   <label htmlFor="email" className="sr-only">
@@ -347,7 +163,84 @@ const PostPage: FC<PostPageProps> = () => {
                 </button>
               </form>
             </SiteAsideContainer>
-            <SiteAsideContainer>
+          </SiteAside>
+
+          <section className="col-span-1 flex flex-col lg:col-span-2 lg:col-start-2 lg:row-span-2">
+            <div className="mb-16 flex-1">{children}</div>
+
+            <nav className="flex items-center justify-between border-t border-gray-200 px-4 sm:px-0">
+              <div className="-mt-px flex w-0 flex-1">
+                <a
+                  href="@/app/[locale]/(routes)/(singular)/post/page#"
+                  className="inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                >
+                  <MoveLeft
+                    className="mr-3 h-5 w-5 text-gray-400"
+                    aria-hidden="true"
+                  />
+                  Previous
+                </a>
+              </div>
+              <div className="hidden md:-mt-px md:flex">
+                <a
+                  href="@/app/[locale]/(routes)/(singular)/post/page#"
+                  className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                >
+                  1
+                </a>
+                {/* Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" */}
+                <a
+                  href="@/app/[locale]/(routes)/(singular)/post/page#"
+                  className="inline-flex items-center border-t-2 border-indigo-500 px-4 pt-4 text-sm font-medium text-indigo-600"
+                  aria-current="page"
+                >
+                  2
+                </a>
+                <a
+                  href="@/app/[locale]/(routes)/(singular)/post/page#"
+                  className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                >
+                  3
+                </a>
+                <span className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500">
+                  ...
+                </span>
+                <a
+                  href="@/app/[locale]/(routes)/(singular)/post/page#"
+                  className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                >
+                  8
+                </a>
+                <a
+                  href="@/app/[locale]/(routes)/(singular)/post/page#"
+                  className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                >
+                  9
+                </a>
+                <a
+                  href="@/app/[locale]/(routes)/(singular)/post/page#"
+                  className="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                >
+                  10
+                </a>
+              </div>
+              <div className="-mt-px flex w-0 flex-1 justify-end">
+                <a
+                  href="@/app/[locale]/(routes)/(singular)/post/page#"
+                  className="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+                >
+                  Next
+                  <MoveRight
+                    className="ml-3 h-5 w-5 text-gray-400"
+                    aria-hidden="true"
+                  />
+                </a>
+              </div>
+            </nav>
+          </section>
+
+          <SiteAside>
+            <SiteAsideContainer className="hidden lg:block">
               <h2 className="text-2xl font-bold tracking-tight text-gray-900">
                 Navigation
               </h2>
@@ -451,4 +344,4 @@ const PostPage: FC<PostPageProps> = () => {
   );
 };
 
-export default PostPage;
+export default SiteArchiveLayout;

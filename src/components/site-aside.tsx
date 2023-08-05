@@ -1,4 +1,5 @@
 import { FC, ReactNode } from "react";
+import { cn } from "@/libs/utils";
 
 interface SiteAsideProps {
   children: ReactNode;
@@ -6,6 +7,7 @@ interface SiteAsideProps {
 
 interface SiteAsideContainerProps {
   children: ReactNode;
+  className?: string;
 }
 
 const SiteAside: FC<SiteAsideProps> = ({ children }) => {
@@ -16,8 +18,14 @@ const SiteAside: FC<SiteAsideProps> = ({ children }) => {
 
 export const SiteAsideContainer: FC<SiteAsideContainerProps> = ({
   children,
+  className,
+  ...props
 }) => {
-  return <aside className="flex flex-col space-y-4">{children}</aside>;
+  return (
+    <aside className={cn("flex flex-col space-y-4", className)} {...props}>
+      {children}
+    </aside>
+  );
 };
 
 export default SiteAside;
