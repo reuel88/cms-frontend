@@ -7,7 +7,7 @@ export default function Home() {
   const t = useTranslations("HomePage");
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex flex-col items-center justify-between p-24">
       <div className="">
         <h1 className="mb-4 text-3xl font-semibold leading-tight tracking-tight text-primary md:text-5xl">
           {t("title")}

@@ -8,10 +8,10 @@ interface PageLayoutProps {
 
 export default function PageLayout({ children }: PageLayoutProps) {
   return (
-    <>
+    <div className="flex h-full flex-col">
       <SiteHeader />
-      {children}
+      <div className="flex-1">{children}</div>
       <SiteFooter />
-    </>
+    </div>
   );
 }
