@@ -2,17 +2,22 @@
 
 import { FC, ReactNode } from "react";
 import SiteContainer from "@/components/site-container";
-import SiteAside, { SiteAsideContainer } from "@/components/site-aside";
+import SiteAside, {
+  SiteAsideContainer,
+  SiteAsideHeader,
+} from "@/components/site-aside";
 import { ChevronRight, Home, MoveLeft, MoveRight } from "lucide-react";
 import { cn } from "@/libs/utils";
 import { Disclosure } from "@headlessui/react";
 
 const pages = [{ name: "Blog", href: "#", current: false }];
+
 const navigation = [
   { name: "Dashboard", href: "#", current: true },
   {
     name: "Teams",
     current: false,
+    href: "#",
     children: [
       { name: "Engineering", href: "#" },
       { name: "Human Resources", href: "#" },
@@ -22,6 +27,7 @@ const navigation = [
   {
     name: "Projects",
     current: false,
+    href: "#",
     children: [
       { name: "GraphQL API", href: "#" },
       { name: "iOS App", href: "#" },
@@ -101,8 +107,8 @@ interface SiteArchiveLayoutProps {
 const SiteArchiveLayout: FC<SiteArchiveLayoutProps> = ({ children }) => {
   return (
     <main>
-      <SiteContainer>
-        <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-8 lg:mx-0 lg:max-w-none lg:grid-flow-col lg:grid-cols-3 lg:grid-rows-[1fr_minmax(0,100%)]">
+      <SiteContainer className="pt-8 md:pt-16">
+        <div className="grid grid-cols-1 gap-x-8 gap-y-8 lg:grid-flow-col lg:grid-cols-3 lg:grid-rows-[1fr_minmax(0,100%)]">
           <SiteAside>
             <SiteAsideContainer>
               <nav className="flex" aria-label="Breadcrumb">
@@ -162,6 +168,70 @@ const SiteArchiveLayout: FC<SiteArchiveLayoutProps> = ({ children }) => {
                   Search
                 </button>
               </form>
+            </SiteAsideContainer>
+            <SiteAsideContainer className="lg:block">
+              <SiteAsideHeader title="Navigation" />
+              <ul role="list" className="space-y-1">
+                {navigation.map((item) => (
+                  <li key={item.name}>
+                    {!item?.children ? (
+                      <a
+                        href={item.href}
+                        className={cn(
+                          item.current ? "bg-gray-50" : "hover:bg-gray-50",
+                          "block rounded-md py-2 pl-10 pr-2 text-sm font-semibold leading-6 text-gray-700",
+                        )}
+                      >
+                        {item.name}
+                      </a>
+                    ) : (
+                      <Disclosure as="div">
+                        {({ open }) => (
+                          <>
+                            <Disclosure.Button
+                              className={cn(
+                                item.current
+                                  ? "bg-gray-50"
+                                  : "hover:bg-gray-50",
+                                "flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm font-semibold leading-6 text-gray-700",
+                              )}
+                            >
+                              <ChevronRight
+                                className={cn(
+                                  open
+                                    ? "rotate-90 text-gray-500"
+                                    : "text-gray-400",
+                                  "h-5 w-5 shrink-0",
+                                )}
+                                aria-hidden="true"
+                              />
+                              {item.name}
+                            </Disclosure.Button>
+                            <Disclosure.Panel as="ul" className="mt-1 px-2">
+                              {item?.children.map((subItem) => (
+                                <li key={subItem.name}>
+                                  <Disclosure.Button
+                                    as="a"
+                                    href={subItem.href}
+                                    className={cn(
+                                      subItem.current
+                                        ? "bg-gray-50"
+                                        : "hover:bg-gray-50",
+                                      "block rounded-md py-2 pl-9 pr-2 text-sm leading-6 text-gray-700",
+                                    )}
+                                  >
+                                    {subItem.name}
+                                  </Disclosure.Button>
+                                </li>
+                              ))}
+                            </Disclosure.Panel>
+                          </>
+                        )}
+                      </Disclosure>
+                    )}
+                  </li>
+                ))}
+              </ul>
             </SiteAsideContainer>
           </SiteAside>
 
@@ -240,76 +310,8 @@ const SiteArchiveLayout: FC<SiteArchiveLayoutProps> = ({ children }) => {
           </section>
 
           <SiteAside>
-            <SiteAsideContainer className="hidden lg:block">
-              <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-                Navigation
-              </h2>
-              <ul role="list" className="space-y-1">
-                {navigation.map((item) => (
-                  <li key={item.name}>
-                    {!item.children ? (
-                      <a
-                        href={item.href}
-                        className={cn(
-                          item.current ? "bg-gray-50" : "hover:bg-gray-50",
-                          "block rounded-md py-2 pl-10 pr-2 text-sm font-semibold leading-6 text-gray-700",
-                        )}
-                      >
-                        {item.name}
-                      </a>
-                    ) : (
-                      <Disclosure as="div">
-                        {({ open }) => (
-                          <>
-                            <Disclosure.Button
-                              className={cn(
-                                item.current
-                                  ? "bg-gray-50"
-                                  : "hover:bg-gray-50",
-                                "flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm font-semibold leading-6 text-gray-700",
-                              )}
-                            >
-                              <ChevronRight
-                                className={cn(
-                                  open
-                                    ? "rotate-90 text-gray-500"
-                                    : "text-gray-400",
-                                  "h-5 w-5 shrink-0",
-                                )}
-                                aria-hidden="true"
-                              />
-                              {item.name}
-                            </Disclosure.Button>
-                            <Disclosure.Panel as="ul" className="mt-1 px-2">
-                              {item.children.map((subItem) => (
-                                <li key={subItem.name}>
-                                  <Disclosure.Button
-                                    as="a"
-                                    href={subItem.href}
-                                    className={cn(
-                                      subItem.current
-                                        ? "bg-gray-50"
-                                        : "hover:bg-gray-50",
-                                      "block rounded-md py-2 pl-9 pr-2 text-sm leading-6 text-gray-700",
-                                    )}
-                                  >
-                                    {subItem.name}
-                                  </Disclosure.Button>
-                                </li>
-                              ))}
-                            </Disclosure.Panel>
-                          </>
-                        )}
-                      </Disclosure>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </SiteAsideContainer>
-            <SiteAsideContainer>
-              <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-                Popular Articles
-              </h2>
+            <SiteAsideContainer className="space-y-0">
+              <SiteAsideHeader title="Popular Articles" />
               <ul role="list" className="divide-y divide-gray-100">
                 {posts.map((post) => (
                   <li key={post.id}>
@@ -325,7 +327,7 @@ const SiteArchiveLayout: FC<SiteArchiveLayoutProps> = ({ children }) => {
                             {post.title}
                           </p>
                           <p className="flex-none text-xs text-gray-600">
-                            <time dateTime={post.dateTime}>{post.date}</time>
+                            <time dateTime={post.datetime}>{post.date}</time>
                           </p>
                         </div>
                         <p className="mt-1 line-clamp-2 text-sm leading-6 text-gray-600">

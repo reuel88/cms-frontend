@@ -1,3 +1,5 @@
+import SectionHeader from "@/components/section-header";
+
 interface ArchivePageProps {}
 
 const posts = [
@@ -65,9 +67,12 @@ export default function ArchivePage({}: ArchivePageProps) {
   return (
     <div className="space-y-16">
       <div className="grid max-w-2xl grid-cols-1 gap-x-8 gap-y-4 md:mx-0 md:max-w-none md:grid-cols-2">
-        <h2 className="col-span-1 text-2xl font-bold tracking-tight text-gray-900 md:col-span-2">
-          August, 2023
-        </h2>
+        <SectionHeader
+          title="August, 2023"
+          level={2}
+          className="col-span-1 ml-0 md:col-span-2"
+        />
+
         {posts.map((post) => (
           <div key={post.id}>
             <article className="flex gap-x-4 py-5">
@@ -82,7 +87,7 @@ export default function ArchivePage({}: ArchivePageProps) {
                     {post.title}
                   </p>
                   <p className="flex-none text-xs text-gray-600">
-                    <time dateTime={post.dateTime}>{post.date}</time>
+                    <time dateTime={post.datetime}>{post.date}</time>
                   </p>
                 </div>
                 <p className="mt-1 line-clamp-2 text-sm leading-6 text-gray-600">
@@ -95,9 +100,11 @@ export default function ArchivePage({}: ArchivePageProps) {
       </div>
 
       <div className="grid max-w-2xl grid-cols-1 gap-x-8 gap-y-4 md:mx-0 md:max-w-none md:grid-cols-2">
-        <h2 className="col-span-1 text-2xl font-bold tracking-tight text-gray-900 md:col-span-2">
-          August, 2023
-        </h2>
+        <SectionHeader
+          title="August, 2023"
+          level={2}
+          className="col-span-1 ml-0 md:col-span-2"
+        />
         {[posts[0], posts[1]].map((post) => (
           <div key={post.id}>
             <article className="flex gap-x-4 py-5">
@@ -112,7 +119,7 @@ export default function ArchivePage({}: ArchivePageProps) {
                     {post.title}
                   </p>
                   <p className="flex-none text-xs text-gray-600">
-                    <time dateTime={post.dateTime}>{post.date}</time>
+                    <time dateTime={post.datetime}>{post.date}</time>
                   </p>
                 </div>
                 <p className="mt-1 line-clamp-2 text-sm leading-6 text-gray-600">
@@ -125,9 +132,11 @@ export default function ArchivePage({}: ArchivePageProps) {
       </div>
 
       <div className="grid max-w-2xl grid-cols-1 gap-x-8 gap-y-4 md:mx-0 md:max-w-none md:grid-cols-2">
-        <h2 className="col-span-1 text-2xl font-bold tracking-tight text-gray-900 md:col-span-2">
-          August, 2023
-        </h2>
+        <SectionHeader
+          title="August, 2023"
+          level={2}
+          className="col-span-1 ml-0 md:col-span-2"
+        />
         {[...posts, ...posts].map((post) => (
           <div key={post.id}>
             <article className="flex gap-x-4 py-5">
@@ -142,7 +151,7 @@ export default function ArchivePage({}: ArchivePageProps) {
                     {post.title}
                   </p>
                   <p className="flex-none text-xs text-gray-600">
-                    <time dateTime={post.dateTime}>{post.date}</time>
+                    <time dateTime={post.datetime}>{post.date}</time>
                   </p>
                 </div>
                 <p className="mt-1 line-clamp-2 text-sm leading-6 text-gray-600">

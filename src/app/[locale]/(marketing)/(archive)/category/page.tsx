@@ -1,4 +1,6 @@
-interface SearchPageProps {}
+import SectionHeader from "@/components/section-header";
+
+interface CategoryPageProps {}
 
 const posts = [
   {
@@ -61,13 +63,16 @@ const posts = [
   // More posts...
 ];
 
-export default function SearchPage({}: SearchPageProps) {
+export default function CategoryPage({}: CategoryPageProps) {
   return (
     <div className="space-y-16">
       <div className="grid max-w-2xl grid-cols-1 gap-x-8 gap-y-4 md:mx-0 md:max-w-none md:grid-cols-2">
-        <h2 className="col-span-1 text-2xl font-bold tracking-tight text-gray-900 md:col-span-2">
-          Results: Home
-        </h2>
+        <SectionHeader
+          title="Category: Home"
+          level={2}
+          className="col-span-1 ml-0 md:col-span-2"
+        />
+
         {posts.map((post) => (
           <div key={post.id}>
             <article className="flex gap-x-4 py-5">
@@ -82,7 +87,7 @@ export default function SearchPage({}: SearchPageProps) {
                     {post.title}
                   </p>
                   <p className="flex-none text-xs text-gray-600">
-                    <time dateTime={post.dateTime}>{post.date}</time>
+                    <time dateTime={post.datetime}>{post.date}</time>
                   </p>
                 </div>
                 <p className="mt-1 line-clamp-2 text-sm leading-6 text-gray-600">

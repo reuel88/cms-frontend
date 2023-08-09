@@ -1,4 +1,6 @@
-interface AuthorPageProps {}
+import SectionHeader from "@/components/section-header";
+
+interface SearchPageProps {}
 
 const posts = [
   {
@@ -61,13 +63,15 @@ const posts = [
   // More posts...
 ];
 
-export default function AuthorPage({}: AuthorPageProps) {
+export default function SearchPage({}: SearchPageProps) {
   return (
     <div className="space-y-16">
       <div className="grid max-w-2xl grid-cols-1 gap-x-8 gap-y-4 md:mx-0 md:max-w-none md:grid-cols-2">
-        <h2 className="col-span-1 text-2xl font-bold tracking-tight text-gray-900 md:col-span-2">
-          Author: James
-        </h2>
+        <SectionHeader
+          title="Results: Home"
+          level={2}
+          className="col-span-1 ml-0 md:col-span-2"
+        />
         {posts.map((post) => (
           <div key={post.id}>
             <article className="flex gap-x-4 py-5">
